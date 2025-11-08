@@ -1,18 +1,59 @@
-# PROG2004-A1-xinrui-ma
-# PROG2004 A1 健康服务预约系统
-学生ID：1112520  
-项目名称：健康服务预约系统  
+# PROG2004 - Assignment 1
+### Student: Xinrui Ma (24832562)
+### Email: 3541816510@qq.com
+### Repository: [PROG2004-A1-xinrui-ma](https://github.com/1112520/PROG2004-A1-xinrui-ma)
 
-## 项目结构
-- `src/AssignmentOne.java`：主类，包含 main 方法和预约管理功能  
-- `src/HealthProfessional.java`：基类，封装健康专业人员的共性属性  
-- `src/GeneralPractitioner.java`：子类，继承基类，添加诊所位置属性  
-- `src/Dietitian.java`：子类，继承基类，添加从业年限属性  
-- `src/Appointment.java`：预约类，关联患者、时间和医生信息  
+---
 
-## 运行方法
-1. 编译：在终端进入 src 目录，执行 `javac *.java`  
-2. 运行：执行 `java AssignmentOne`  
+Project Overview
+This project is developed for **PROG2004 – Object-Oriented Programming**.  
+It demonstrates key OOP principles and collection manipulation in Java through a health appointment management system.
 
-## 开发说明
-本项目通过继承和多态实现健康服务人员的差异化管理，支持预约的创建、打印和取消功能。
+The system manages **Health Professionals** and **Appointments**, showcasing **encapsulation**, **inheritance**, **polymorphism**, **composition**, and **collection usage** (`ArrayList`).  
+It also includes an **HD-level enhancement** — *appointment time-slot conflict detection*.
+
+---
+
+Key Features
+
+| Feature | Description |
+|----------|--------------|
+| Encapsulation| Each class (e.g., `HealthProfessional`, `Appointment`) uses private fields with public getters/setters. |
+| Inheritance| `GeneralPractitioner` and `Dietitian` inherit from `HealthProfessional`. |
+| Polymorphism| Both subclasses override the `printDetails()` method to show specific information. |
+| Composition| The `Appointment` class contains a `HealthProfessional` object. |
+| Collections| Uses `ArrayList` to manage multiple appointments in the main class (`AssignmentOne`). |
+|Validation & Error Handling| Rejects invalid inputs (e.g., empty fields). |
+| HD Enhancement – Time Conflict Detection| Prevents creation of new appointments when the same time slot is already taken. |
+
+---
+
+Class Structure
+src/
+├── AssignmentOne.java // Main driver class (Part 3 & Part 5)
+├── HealthProfessional.java // Base class (encapsulation)
+├── GeneralPractitioner.java // Subclass (inheritance)
+├── Dietitian.java // Subclass (inheritance + override)
+└── Appointment.java // Composition class (object within object)
+Program Flow Summary
+
+Part 3 – Using Classes and Objects
+- Creates multiple `GeneralPractitioner` and `Dietitian` instances.
+- Demonstrates inheritance and polymorphism via `printDetails()`.
+
+Part 5 – Collection of Appointments
+- Uses an `ArrayList` to store multiple `Appointment` objects.
+- Allows user-like simulation of:
+  - Creating appointments
+  - Printing existing appointments
+  - Canceling an appointment
+
+Enhancement
+- Adds time-slot conflict validation before appointment creation:
+  ```java
+  for (Appointment a : appointments) {
+      if (a.getTimeSlot().equalsIgnoreCase(timeSlot)) {
+          System.out.println("Time slot " + timeSlot + " is already booked. Please choose another time.");
+          return;
+      }
+  }
