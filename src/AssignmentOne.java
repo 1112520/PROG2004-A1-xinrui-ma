@@ -5,6 +5,7 @@ import java.util.ArrayList;
  * 展示：
  * Part 3 – Using classes and objects
  * Part 5 – Collection of appointments
+ * + HD 加分项：预约时间冲突检测
  */
 public class AssignmentOne {
     // Part 5 – 使用 ArrayList 管理所有预约
@@ -48,6 +49,9 @@ public class AssignmentOne {
         createAppointment("Olivia", "0411555666", "09:30", d1);
         createAppointment("Noah", "0411666777", "14:00", d2);
 
+        // 尝试创建重复时间段的预约（测试冲突检测）
+        createAppointment("Mia", "0411888999", "09:30", gp3);
+
         // 打印现有预约
         printExistingAppointments();
 
@@ -71,6 +75,14 @@ public class AssignmentOne {
 
             System.out.println("Invalid appointment. Please provide all details.");
             return;
+        }
+
+        // ===== 时间冲突检测（HD 加分项） =====
+        for (Appointment a : appointments) {
+            if (a.getTimeSlot().equalsIgnoreCase(timeSlot)) {
+                System.out.println("⚠️ Time slot " + timeSlot + " is already booked. Please choose another time.");
+                return; // 直接返回，不创建新预约
+            }
         }
 
         Appointment appt = new Appointment(patientName, mobile, timeSlot, doctor);
