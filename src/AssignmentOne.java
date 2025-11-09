@@ -1,14 +1,14 @@
 import java.util.ArrayList;
 
 /**
- * AssignmentOne 主类
- * 展示：
+ * Main class for AssignmentOne
+ * Demonstrates:
  * Part 3 – Using classes and objects
  * Part 5 – Collection of appointments
- * + HD 加分项：预约时间冲突检测
+ * + Appointment time conflict detection
  */
 public class AssignmentOne {
-    // Part 5 – 使用 ArrayList 管理所有预约
+    // Part 5 – Use ArrayList to manage all appointments
     private static ArrayList<Appointment> appointments = new ArrayList<>();
 
     public static void main(String[] args) {
@@ -17,7 +17,7 @@ public class AssignmentOne {
         // ==========================
         System.out.println("// Part 3 – Using classes and objects");
 
-        // 创建 3 个全科医生（GP）与 2 个营养师（Dietitian）
+        // Create 3 General Practitioners (GPs) and 2 Dietitians
         GeneralPractitioner gp1 = new GeneralPractitioner(1, "Dr. Alice", "MBBS", "Downtown Clinic");
         GeneralPractitioner gp2 = new GeneralPractitioner(2, "Dr. Bob", "MBBS", "Green Valley Clinic");
         GeneralPractitioner gp3 = new GeneralPractitioner(3, "Dr. Eve", "MBBS", "Westside Clinic");
@@ -25,7 +25,7 @@ public class AssignmentOne {
         Dietitian d1 = new Dietitian(4, "Dr. Carol", "BSc Nutrition", 8);
         Dietitian d2 = new Dietitian(5, "Dr. Dan", "BSc Nutrition", 5);
 
-        // 打印所有医生信息（演示继承与多态）
+        // Print all doctor information (demonstrating inheritance and polymorphism)
         gp1.printDetails();
         System.out.println();
         gp2.printDetails();
@@ -43,29 +43,29 @@ public class AssignmentOne {
         // ==========================
         System.out.println("// Part 5 – Collection of appointments");
 
-        // 创建若干预约
+        // Create several appointments
         createAppointment("Emma", "0411222333", "08:00", gp1);
         createAppointment("Liam", "0411333444", "10:00", gp2);
         createAppointment("Olivia", "0411555666", "09:30", d1);
         createAppointment("Noah", "0411666777", "14:00", d2);
 
-        // 尝试创建重复时间段的预约（测试冲突检测）
+        // Attempt to create an appointment with a duplicate time slot (to test conflict detection)
         createAppointment("Mia", "0411888999", "09:30", gp3);
 
-        // 打印现有预约
+        // Print existing appointments
         printExistingAppointments();
 
-        // 取消一个预约（按手机号）
+        // Cancel an appointment (by mobile number)
         cancelBooking("0411333444");
 
-        // 再次打印，验证取消成功
+        // Print again to verify cancellation was successful
         printExistingAppointments();
 
         System.out.println("------------------------------");
     }
 
     /**
-     * 创建新预约
+     * Create a new appointment
      */
     public static void createAppointment(String patientName, String mobile, String timeSlot, HealthProfessional doctor) {
         if (patientName == null || patientName.isEmpty() ||
@@ -77,21 +77,21 @@ public class AssignmentOne {
             return;
         }
 
-        // ===== 时间冲突检测（HD 加分项） =====
+        // ===== Time slot conflict detection =====
         for (Appointment a : appointments) {
             if (a.getTimeSlot().equalsIgnoreCase(timeSlot)) {
-                System.out.println("⚠️ Time slot " + timeSlot + " is already booked. Please choose another time.");
-                return; // 直接返回，不创建新预约
+                System.out.println(" Time slot " + timeSlot + " is already booked. Please choose another time.");
+                return; // Return directly, do not create new appointment
             }
         }
 
         Appointment appt = new Appointment(patientName, mobile, timeSlot, doctor);
         appointments.add(appt);
-        System.out.println("✅ Appointment created successfully for " + patientName + " at " + timeSlot);
+        System.out.println(" Appointment created successfully for " + patientName + " at " + timeSlot);
     }
 
     /**
-     * 打印所有预约信息
+     * Print all appointment information
      */
     public static void printExistingAppointments() {
         if (appointments.isEmpty()) {
@@ -106,7 +106,7 @@ public class AssignmentOne {
     }
 
     /**
-     * 取消指定手机号的预约
+     * Cancel the appointment with the specified mobile number
      */
     public static void cancelBooking(String mobile) {
         boolean found = false;
